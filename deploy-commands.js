@@ -3,8 +3,7 @@ const path = require("node:path");
 const { REST, Routes } = require("discord.js");
 
 // dotenv
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
 // importação de comandos
 const commandsPath = path.join(__dirname, "comandos");
