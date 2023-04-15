@@ -1,15 +1,21 @@
-const { Schema, Model } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const PlayerSchema = new Schema({
   userId: {
     type: String,
     required: true
   },
+  userName: {
+    type: String,
+    required: true
+  },
   akumaNoMi: {
     type: String,
+    default: 'none'
   },
   arma: {
     type: String,
+    default: 'none'
   },
   ouro: {
     type: Number,
@@ -25,4 +31,4 @@ const PlayerSchema = new Schema({
   }
 });
 
-module.exports = Model('Player', PlayerSchema);
+module.exports = model('Player', PlayerSchema);
