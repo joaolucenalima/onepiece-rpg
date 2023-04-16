@@ -1,7 +1,8 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
+const Arma = require("./Armas")
 
 const PlayerSchema = new Schema({
-  userId: {
+  _id: {
     type: String,
     required: true
   },
@@ -9,13 +10,29 @@ const PlayerSchema = new Schema({
     type: String,
     required: true
   },
+  vida: {
+    type: Number,
+    default: 150
+  },
+  força: {
+    type: Number,
+    default: 20
+  },
+  resistencia: {
+    type: Number,
+    default: 18
+  },
+  agilidade: {
+    type: Number,
+    default: 2
+  },
   akumaNoMi: {
     type: String,
     default: 'none'
   },
   arma: {
-    type: String,
-    default: 'none'
+    type: Types.ObjectId,
+    ref: Arma,
   },
   ouro: {
     type: Number,
@@ -27,8 +44,10 @@ const PlayerSchema = new Schema({
   },
   nivel: {
     type: Number,
-    default: 0
+    default: 1
   }
+}, {
+  versionKey: false
 });
 
 module.exports = model('Player', PlayerSchema);

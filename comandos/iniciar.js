@@ -5,15 +5,13 @@ module.exports = {
 
   data: new SlashCommandBuilder()
     .setName("iniciar") // nome do comando
-    .setDescription("Entre no mundo de One Piece!"), // mini descrição do comando
+    .setDescription("Inicie sua jornada no mundo de One Piece!"), // mini descrição do comando
 
   async executar(interacao) {
 
     const playerCadastrado = await Player.findOne({
       userId: interacao.user.id
     });
-
-    console.log(playerCadastrado);
 
     if (playerCadastrado) {
       await interacao.reply(`Você já está no mundo de One Piece, ${playerCadastrado.userName}!`);
@@ -22,7 +20,7 @@ module.exports = {
 
     if (!interacao.user.bot) {
       const newPlayer = new Player({
-        userId: interacao.user.id,
+        _id: interacao.user.id,
         userName: interacao.user.username
       });
 
