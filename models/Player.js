@@ -1,5 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
-const Arma = require("./Armas")
+const Armas = require("./Armas")
 
 const PlayerSchema = new Schema({
   _id: {
@@ -32,7 +32,7 @@ const PlayerSchema = new Schema({
   },
   arma: {
     type: Types.ObjectId,
-    ref: Arma,
+    ref: Armas,
   },
   ouro: {
     type: Number,
@@ -45,7 +45,11 @@ const PlayerSchema = new Schema({
   nivel: {
     type: Number,
     default: 1
-  }
+  },
+  ataques: [{
+    nome: String,
+    dano: Number
+  }]
 }, {
   versionKey: false
 });

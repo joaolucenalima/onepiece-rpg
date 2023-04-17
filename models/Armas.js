@@ -13,16 +13,26 @@ const ArmaSchema = new Schema({
     type: Number,
     required: true
   },
-  dano: {
-    type: Number,
-    required: true
+  atributos: {
+    força: {
+      type: Number,
+      default: 0
+    },
+    resistência: {
+      type: Number,
+      default: 0
+    },
+    agilidade: {
+      type: Number,
+      default: 0
+    }
   },
-  ataques: {
-    type: Number,
-    required: true
-  }
+  ataques: [{
+    nome: String,
+    dano: Number
+  }]
 }, {
   versionKey: false
 });
 
-module.exports = model('Arma', ArmaSchema);
+module.exports = model('Armas', ArmaSchema);
