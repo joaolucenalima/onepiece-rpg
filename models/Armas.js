@@ -18,7 +18,7 @@ const ArmaSchema = new Schema({
       type: Number,
       default: 0
     },
-    resistência: {
+    resistencia: {
       type: Number,
       default: 0
     },

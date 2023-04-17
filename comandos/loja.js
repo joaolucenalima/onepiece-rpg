@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
 const Armas = require('../models/Armas');
 
 module.exports = {
@@ -11,25 +11,25 @@ module.exports = {
 
     const armas = await Armas.find();
 
-    console.clear()
-    console.log(armas);
+    var fields = [{ name: '\u200B', value: '\u200B' }];
+
+    armas.map(arma => {
+      fields.push({ name: `🗡 **${arma.nome}**`, value: `\`฿ ${arma.custo}\`` });
+    });
+
+    const lojaEspadas = new AttachmentBuilder('./assets/loja-espadas.png');
 
     if (!interacao.user.bot) {
 
-      const { EmbedBuilder } = require('discord.js');
+      const embedLoja = {
+        color: 0x0099FF,
+        title: 'Loja da ilha',
+        description: 'Compre suas armas aqui!',
+        thumbnail: { url: 'attachment://loja-espadas.png' },
+        fields,
+      };
 
-      const exampleEmbed = new EmbedBuilder()
-        .setColor(0x0099FF)
-        .setTitle('Loja da ilha')
-        .setDescription('Compre suas armas aqui!')
-        .setImage('../assets/loja-espadas.png')
-        .addFields(
-          { name: '\u200B', value: '\u200B' },
-          { name: 'Inline field title', value: 'Some value here', inline: true },
-          { name: 'Inline field title', value: 'Some value here', inline: true },
-        )
-
-      await interacao.reply({ embeds: [exampleEmbed] });
+      await interacao.reply({ embeds: [embedLoja], files: [lojaEspadas] });
 
     };
   }
