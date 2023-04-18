@@ -13,6 +13,11 @@ module.exports = {
 
       const playerInfo = await Player.findById(interacao.user.id)
 
+      if (!playerInfo) {
+        await interacao.reply("Vc ainda não faz parte do mundo de One Piece 🙁\n\nUse o comando \`/iniciar\` para fazer parte dessa aventura! 🌊 🚢 🔱");
+        return;
+      };
+
       const embedPerfil = {
         color: 0x0099FF,
         title: interacao.user.username,
@@ -27,8 +32,7 @@ module.exports = {
             inline: true
           },
           {
-            name: '\u200b',
-            value: '\u200b'
+            name: '\u200b', value: '\u200b'
           },
           {
             name: 'Vida 💚',
@@ -44,8 +48,7 @@ module.exports = {
             inline: true,
           },
           {
-            name: '\u200b',
-            value: '\u200b',
+            name: '\u200b', value: '\u200b',
           },
           {
             name: 'Resistência 🛡',
@@ -64,7 +67,6 @@ module.exports = {
       };
 
       await interacao.reply({ embeds: [embedPerfil] });
-
     };
   }
 

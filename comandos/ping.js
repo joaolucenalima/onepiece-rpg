@@ -7,7 +7,7 @@ module.exports = {
     .setDescription("Responde com 'Pong!'"), // mini descrição do comando
 
   async executar(interacao) {
-    await interacao.reply("Pong!")
+    await interacao.reply("Pong!") // resposta do bot
   }
 
 }
