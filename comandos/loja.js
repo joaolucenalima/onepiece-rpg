@@ -9,17 +9,17 @@ module.exports = {
 
   async executar(interacao) {
 
-    const armas = await Armas.find();
-
-    var fields = [{ name: '\u200B', value: '\u200B' }];
-
-    armas.map(arma => {
-      fields.push({ name: `🗡 **${arma.nome}**`, value: `\`฿ ${arma.custo}\`` });
-    });
-
-    const lojaEspadas = new AttachmentBuilder('./assets/loja-espadas.png');
-
     if (!interacao.user.bot) {
+
+      const armas = await Armas.find();
+
+      var fields = [{ name: '\u200B', value: '\u200B' }];
+
+      armas.map(arma => {
+        fields.push({ name: `🗡 **${arma.nome}**`, value: `\`฿ ${arma.custo}\`` });
+      });
+
+      const lojaEspadas = new AttachmentBuilder('./assets/loja-espadas.png');
 
       const embedLoja = {
         color: 0x0099FF,

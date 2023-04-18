@@ -21,7 +21,17 @@ module.exports = {
     if (!interacao.user.bot) {
       const newPlayer = new Player({
         _id: interacao.user.id,
-        userName: interacao.user.username
+        userName: interacao.user.username,
+        avatar: interacao.user.avatar,
+        ataques: [{
+          nome: "Soco",
+          dano: "25"
+        },
+        {
+          nome: "Chute",
+          dano: "20"
+        }
+        ]
       });
 
       await newPlayer.save();

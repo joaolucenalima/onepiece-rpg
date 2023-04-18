@@ -14,7 +14,7 @@ const ArmaSchema = new Schema({
     required: true
   },
   atributos: {
-    força: {
+    forca: {
       type: Number,
       default: 0
     },
@@ -30,7 +30,11 @@ const ArmaSchema = new Schema({
   ataques: [{
     nome: String,
     dano: Number
-  }]
+  }],
+  equipada: {
+    type: Boolean,
+    default: false
+  }
 }, {
   versionKey: false
 });
