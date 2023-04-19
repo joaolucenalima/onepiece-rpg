@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const Player = require('../models/Player');
+const calcularXp = require('../utils/calcularXp');
 
 module.exports = {
 
@@ -11,25 +12,38 @@ module.exports = {
 
     if (!interacao.user.bot) {
 
-      const playerInfo = await Player.findById(interacao.user.id)
+      const playerInfo = await Player.findById(interacao.user.id);
 
       if (!playerInfo) {
         await interacao.reply("Vc ainda não faz parte do mundo de One Piece 🙁\n\nUse o comando \`/iniciar\` para fazer parte dessa aventura! 🌊 🚢 🔱");
         return;
       };
 
+      if (playerInfo.akumaNoMi === 'none') {
+        playerInfo.akumaNoMi = "Você não comeu uma akuma no mi.";
+      };
+
+      if (playerInfo.arma === undefined) {
+        playerInfo.arma = "Você ainda não equipou uma arma.";
+      };
+
+      const xpParaUpar = calcularXp(playerInfo.nivel);
+
       const embedPerfil = {
         color: 0x0099FF,
         title: interacao.user.username,
-        description: `Nível ${playerInfo.nivel} -------------- ${playerInfo.xp} xp`,
+        description: `Nível ${playerInfo.nivel}`,
         thumbnail: {
           url: interacao.user.displayAvatarURL({ dynamic: true })
         },
         fields: [
           {
             name: '',
+            value: `${playerInfo.xp} xp / ${xpParaUpar} xp`,
+          },
+          {
+            name: '',
             value: `💰 **${playerInfo.ouro} ฿**`,
-            inline: true
           },
           {
             name: '\u200b', value: '\u200b'
@@ -63,6 +77,22 @@ module.exports = {
             value: `\`${playerInfo.agilidade}\``,
             inline: true,
           },
+          {
+            name: '\u200b', value: '\u200b'
+          },
+          {
+            name: '<:akumanomi:1098031702565191710> Akuma no Mi',
+            value: `\`${playerInfo.akumaNoMi}\``,
+            inline: true,
+          },
+          {
+            name: '\u200b', value: '\u200b'
+          },
+          {
+            name: '🗡 Arma',
+            value: `\`${playerInfo.arma}\``,
+            inline: true,
+          }
         ],
       };
 

@@ -13,8 +13,6 @@ module.exports = {
 
       const armas = await Armas.find();
 
-      console.log(armas);
-
       // armas que serão mostradas no embed da loja
       var fields = [{ name: '\u200B', value: '\u200B' }];
       // armas que serão exibidas no select
@@ -29,7 +27,7 @@ module.exports = {
 
       const select = new StringSelectMenuBuilder()
         .setCustomId('starter')
-        .setPlaceholder('Make a selection!')
+        .setPlaceholder('Escolha uma arma para comprar')
         .addOptions(selectOptions);
 
       const row = new ActionRowBuilder().addComponents(select);

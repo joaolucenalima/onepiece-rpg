@@ -5,25 +5,32 @@ const Armas = require('../models/Armas');
 require('dotenv').config();
 
 // conectando ao banco de dados
-mongoose.connect(process.env.MONGODB_URI);
+(async () => {
+  mongoose.connect(process.env.MONGODB_URI, { keepAlive: true });
 
-const newArma = new Armas({
-  nome: "",
-  custo: 0,
-  atributos: {
-    forca: 0,
-    resistencia: 0,
-    agilidade: 0
-  },
-  ataques: [
-    {
-      nome: "",
-      dano: 0,
-    }
-  ]
-});
+  const newArma = new Armas({
+    nome: "Espada Básica",
+    custo: 50000,
+    atributos: {
+      forca: 10,
+      resistencia: 7,
+      agilidade: 0
+    },
+    ataques: [
+      {
+        nome: "Corte",
+        dano: 20,
+      },
+      {
+        nome: "Nitoryu",
+        dano: 50,
+      }
+    ]
+  });
 
-newArma.save();
+  await newArma.save();
 
-// desconecta do banco de dados
-mongoose.connection.close()
+  // desconecta do banco de dados
+  mongoose.connection.close();
+
+})();
