@@ -90,7 +90,7 @@ module.exports = {
           },
           {
             name: '🗡 Arma',
-            value: `\`${playerInfo.arma}\``,
+            value: `\`${playerInfo.arma.nome}\``,
             inline: true,
           }
         ],

@@ -23,7 +23,7 @@ module.exports = {
         // adiciona armas ao array de campos do embed
         fields.push({ name: `🗡 **${arma.nome}**`, value: `\`฿ ${arma.custo}\`` });
         // adiciona armas ao select
-        selectOptions.push({ label: arma.nome, emoji: '🗡', value: `${arma.nome}/${arma.custo}` });
+        selectOptions.push({ label: arma.nome, emoji: '🗡', value: `${arma._id}` });
       });
 
       const select = new discordjs.StringSelectMenuBuilder()
@@ -50,14 +50,19 @@ module.exports = {
 
       coletor.on('collect', async i => {
 
-        const { ouro } = await Player.findOne({
+        const jogador = await Player.findOne({
           _id: i.user.id
         });
 
-        const [armaSelecionada, custoDaArma] = (i.values[0]).split("/");
+        if (!jogador) {
+          await interacao.reply("Vc ainda não faz parte do mundo de One Piece 🙁\n\nUse o comando \`/iniciar\` para fazer parte dessa aventura! 🌊 🚢 🔱");
+          return;
+        };
 
-        if (ouro < custoDaArma) {
-          await i.reply({ content: `${i.user.username}, você não tem ouro suficiente para comprar ${armaSelecionada}. 🙁`, ephemeral: true });
+        const armaSelecionada = await Armas.findById(i.values[0]);
+
+        if (jogador.ouro < armaSelecionada.custo) {
+          await i.reply({ content: `${i.user.username}, você não tem ouro suficiente para comprar ${armaSelecionada.nome}. 🙁`, ephemeral: true });
           return;
         };
 
@@ -75,7 +80,7 @@ module.exports = {
           .addComponents(cancel, confirm);
 
         const respostaCompra = await i.reply({
-          content: `${i.user.username}, você selecionou ${armaSelecionada} para compra, deseja prosseguir?`,
+          content: `${i.user.username}, você selecionou ${armaSelecionada.nome} para compra, deseja prosseguir?`,
           ephemeral: true,
           components: [row]
         });
@@ -86,7 +91,22 @@ module.exports = {
           const confirmacao = await respostaCompra.awaitMessageComponent({ filter, time: 60000 });
 
           if (confirmacao.customId === "compra") {
-            await Player.updateOne({ _id: i.user.id }, { ouro: ouro - custoDaArma });
+
+            jogador.ataques.push(armaSelecionada.ataques[0], armaSelecionada.ataques[1]);
+
+            await Player.updateMany(
+              {
+                _id: i.user.id
+              },
+              {
+                forca: jogador.forca + armaSelecionada.atributos.forca,
+                resistencia: jogador.resistencia + armaSelecionada.atributos.resistencia,
+                agilidade: jogador.agilidade + armaSelecionada.atributos.agilidade,
+                ouro: jogador.ouro - armaSelecionada.custo,
+                arma: armaSelecionada,
+                ataques: jogador.ataques
+              }
+            );
             await i.editReply({ content: "Compra realizada com sucesso!!", ephemeral: true, components: [] });
           } else {
             await i.editReply({ content: "Compra cancelada.", ephemeral: true, components: [] });
@@ -94,7 +114,7 @@ module.exports = {
 
         } catch (e) {
           console.log(e);
-          await i.editReply({ content: 'Confirmação não recebida em 1 minuto, cancelando...', components: [] });
+          await i.editReply({ content: 'Confirmação não recebida em 1 minuto, operação cancelada.', components: [] });
         }
 
       });

@@ -34,8 +34,8 @@ const PlayerSchema = new Schema({
     default: 'none'
   },
   arma: {
-    type: Types.ObjectId,
-    ref: Armas,
+    type: Object,
+    ref: 'Armas',
   },
   ouro: {
     type: Number,

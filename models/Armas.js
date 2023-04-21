@@ -1,10 +1,12 @@
 const { Schema, model } = require('mongoose');
 const uuid = require('uuid');
+const Player = require("./Player");
 
 const ArmaSchema = new Schema({
   _id: {
     type: String,
-    default: () => uuid.v4()
+    default: () => uuid.v4(),
+    ref: 'Player'
   },
   nome: {
     type: String,
