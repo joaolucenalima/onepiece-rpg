@@ -1,6 +1,11 @@
 const { Schema, model } = require('mongoose');
+const uuid = require('uuid');
 
 const ArmaSchema = new Schema({
+  _id: {
+    type: String,
+    default: () => uuid.v4()
+  },
   nome: {
     type: String,
     required: true

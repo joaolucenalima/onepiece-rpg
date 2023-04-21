@@ -10,7 +10,7 @@ module.exports = {
   async executar(interacao) {
 
     const playerCadastrado = await Player.findOne({
-      userId: interacao.user.id
+      _id: interacao.user.id
     });
 
     if (playerCadastrado) {

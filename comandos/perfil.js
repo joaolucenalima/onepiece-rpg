@@ -23,7 +23,7 @@ module.exports = {
         playerInfo.akumaNoMi = "Você não comeu uma akuma no mi.";
       };
 
-      if (playerInfo.arma === undefined) {
+      if (playerInfo.arma == undefined) {
         playerInfo.arma = "Você ainda não equipou uma arma.";
       };
 
