@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const uuid = require('uuid');
-const Player = require("./Player");
 
 const ArmaSchema = new Schema({
   _id: {
@@ -37,6 +36,12 @@ const ArmaSchema = new Schema({
   equipada: {
     type: Boolean,
     default: false
+  },
+  compravel: {
+    type: Boolean,
+  },
+  localizacao: {
+    type: String,
   }
 }, {
   versionKey: false

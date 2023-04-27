@@ -12,18 +12,37 @@ module.exports = {
 
     if (!interacao.user.bot) {
 
-      const armas = await Armas.find();
+      const jogador = await Player.findById(interacao.user.id);
+
+      const armas = await Armas.find({
+        compravel: true,
+        localizacao: jogador.localizacao
+      });
+
+      if (jogador.localizacao == 'mar') {
+        await interacao.reply(`Atualmente você está no mar e aí não tem loja!`);
+        return;
+      };
 
       // armas que serão mostradas no embed da loja
       var fields = [{ name: '\u200B', value: '\u200B' }];
+
       // armas que serão exibidas no select
       var selectOptions = [];
 
       armas.map(arma => {
+
         // adiciona armas ao array de campos do embed
         fields.push({ name: `🗡 **${arma.nome}**`, value: `\`฿ ${arma.custo}\`` });
+
         // adiciona armas ao select
-        selectOptions.push({ label: arma.nome, emoji: '🗡', value: `${arma._id}` });
+        selectOptions.push({
+          label: arma.nome,
+          emoji: '🗡',
+          description: `Força: ${arma.atributos.forca} - Resistência: ${arma.atributos.resistencia} - Agilidade: ${arma.atributos.agilidade}`,
+          value: `${arma._id}`
+        });
+
       });
 
       const select = new discordjs.StringSelectMenuBuilder()
@@ -38,7 +57,7 @@ module.exports = {
 
       const embedLoja = {
         color: 0x0099FF,
-        title: 'Loja da ilha',
+        title: `Loja de armas de ${jogador.localizacao}`,
         description: 'Compre suas armas aqui!',
         //thumbnail: { url: 'attachment://loja-espadas.png' },
         fields,
@@ -55,7 +74,7 @@ module.exports = {
         });
 
         if (!jogador) {
-          await interacao.reply("Vc ainda não faz parte do mundo de One Piece 🙁\n\nUse o comando \`/iniciar\` para fazer parte dessa aventura! 🌊 🚢 🔱");
+          await i.reply({ content: "Você ainda não faz parte do mundo de One Piece 🙁\n\nUse o comando \`/iniciar\` para fazer parte dessa aventura! 🌊 🚢 🔱", ephemeral: true });
           return;
         };
 

@@ -23,9 +23,13 @@ module.exports = {
         playerInfo.akumaNoMi = "Você não comeu uma akuma no mi.";
       };
 
+      let nomeDaArma;
+
       if (playerInfo.arma == undefined) {
-        playerInfo.arma = "Você ainda não equipou uma arma.";
-      };
+        nomeDaArma = "Você ainda não equipou uma arma.";
+      } else {
+        nomeDaArma = playerInfo.arma.nome;
+      }
 
       const xpParaUpar = calcularXp(playerInfo.nivel);
 
@@ -90,7 +94,7 @@ module.exports = {
           },
           {
             name: '🗡 Arma',
-            value: `\`${playerInfo.arma.nome}\``,
+            value: `\`${nomeDaArma}\``,
             inline: true,
           }
         ],

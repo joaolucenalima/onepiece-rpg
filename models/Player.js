@@ -1,5 +1,4 @@
-const { Schema, model, Types } = require('mongoose');
-const Armas = require("./Armas")
+const { Schema, model } = require('mongoose');
 
 const PlayerSchema = new Schema({
   _id: {
@@ -48,6 +47,10 @@ const PlayerSchema = new Schema({
   nivel: {
     type: Number,
     default: 1
+  },
+  localizacao: {
+    type: String,
+    default: 'East Blue'
   },
   ataques: [{
     nome: String,

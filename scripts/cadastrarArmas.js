@@ -25,7 +25,9 @@ require('dotenv').config();
         nome: "Nitoryu",
         dano: 50,
       }
-    ]
+    ],
+    compravel: true,
+    localizacao: 'East Blue'
   });
 
   await newArma.save();
