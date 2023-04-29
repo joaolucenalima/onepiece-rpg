@@ -19,8 +19,6 @@ module.exports = {
         await interacao.reply(`Atualmente você está no mar! 🌊 🚢`);
       }
 
-
     }
   }
-
 }

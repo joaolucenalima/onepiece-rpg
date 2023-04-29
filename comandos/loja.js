@@ -52,18 +52,16 @@ module.exports = {
 
       const row = new discordjs.ActionRowBuilder().addComponents(select);
 
-      // HOSPEDAR IMAGEM
-      //const lojaEspadas = new discordjs.AttachmentBuilder('./assets/loja-espadas.png');
 
       const embedLoja = {
         color: 0x0099FF,
         title: `Loja de armas de ${jogador.localizacao}`,
         description: 'Compre suas armas aqui!',
-        //thumbnail: { url: 'attachment://loja-espadas.png' },
+        thumbnail: { url: 'https://i.postimg.cc/2jBhzWZm/loja-espadas.png' },
         fields,
       };
 
-      const resposta = await interacao.reply({ embeds: [embedLoja], /*files: [lojaEspadas],*/ components: [row] });
+      const resposta = await interacao.reply({ embeds: [embedLoja], components: [row] });
 
       const coletor = resposta.createMessageComponentCollector({ componentType: discordjs.ComponentType.StringSelect, time: 100000 });
 

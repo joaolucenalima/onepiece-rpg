@@ -12,9 +12,16 @@ const PlayerSchema = new Schema({
   avatar: {
     type: String
   },
+  escolha: {
+    type: String
+  },
   vida: {
     type: Number,
     default: 150
+  },
+  stamina: {
+    type: Number,
+    default: 100
   },
   forca: {
     type: Number,
@@ -38,7 +45,7 @@ const PlayerSchema = new Schema({
   },
   ouro: {
     type: Number,
-    default: 10000,
+    default: 200000,
   },
   xp: {
     type: Number,

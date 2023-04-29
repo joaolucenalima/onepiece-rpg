@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const fs = require("node:fs");
 const path = require("node:path");
 
+const Player = require('./models/Player');
+
 // dotenv
 require('dotenv').config();
 
@@ -51,6 +53,15 @@ client.on(Events.InteractionCreate, async interacao => {
   const comando = interacao.client.commands.get(interacao.commandName);
 
   if (!comando) return;
+
+  if (comando.data.name != 'iniciar') {
+    const jogador = await Player.findById(interacao.user.id);
+
+    if (!jogador) {
+      await interacao.reply("Vc ainda não faz parte do mundo de One Piece 🙁\n\nUse o comando \`/iniciar\` para fazer parte dessa aventura! 🌊 🚢 🔱");
+      return;
+    }
+  }
 
   try {
     await comando.executar(interacao);
