@@ -14,7 +14,7 @@ module.exports = {
     });
 
     if (playerCadastrado) {
-      await interacao.reply(`Você já está no mundo de One Piece, ${playerCadastrado.userName}!`);
+      await interacao.reply({ content: `Você já está no mundo de One Piece, ${playerCadastrado.userName}!`, ephemeral: true });
       return;
     };
 
@@ -40,13 +40,13 @@ module.exports = {
 
       const respostaClasse = await interacao.reply({
         content: "Seja bem-vindo(a) ao mundo de One Piece, Jogador(a)!! \n\n Escolha uma classe para prosseguir: \n (Você ainda conseguirá upar as outras características, não se preocupe!)",
-        components: [row]
+        components: [row],
+        ephemeral: true
       });
 
-      const filter = i => i.user.id === interacao.user.id;
       try {
 
-        const classe = await respostaClasse.awaitMessageComponent({ filter, time: 60000 });
+        const classe = await respostaClasse.awaitMessageComponent({ time: 60000 });
 
         const newPlayer = new Player({
           _id: interacao.user.id,
@@ -70,7 +70,7 @@ module.exports = {
 
         await newPlayer.save();
 
-        await i.editReply("Ótima escolha, jogador(a)!");
+        await interacao.editReply({ content: "Ótima escolha, jogador(a)!", ephemeral: true, components: [] });
 
       } catch (err) {
         console.log(err);
