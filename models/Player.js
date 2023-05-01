@@ -15,6 +15,9 @@ const PlayerSchema = new Schema({
   escolha: {
     type: String
   },
+  classe: {
+    type: String,
+  },
   vida: {
     type: Number,
     default: 150
@@ -34,6 +37,10 @@ const PlayerSchema = new Schema({
   agilidade: {
     type: Number,
     default: 2
+  },
+  precisao: {
+    type: Number,
+    default: 20
   },
   akumaNoMi: {
     type: String,

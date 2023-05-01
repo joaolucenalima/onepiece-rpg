@@ -56,12 +56,20 @@ module.exports = {
             name: '\u200b', value: '\u200b', inline: true
           },
           {
+            name: 'Stamina 🔋',
+            value: `\`${playerInfo.stamina}\``,
+            inline: true,
+          },
+          {
+            name: '\u200b', value: '\u200b',
+          },
+          {
             name: 'Força 💪',
             value: `\`${playerInfo.forca}\``,
             inline: true,
           },
           {
-            name: '\u200b', value: '\u200b',
+            name: '\u200b', value: '\u200b', inline: true,
           },
           {
             name: 'Resistência 🛡',
@@ -69,11 +77,19 @@ module.exports = {
             inline: true
           },
           {
-            name: '\u200b', value: '\u200b', inline: true
+            name: '\u200b', value: '\u200b'
           },
           {
             name: 'Agilidade ⚡',
             value: `\`${playerInfo.agilidade}\``,
+            inline: true,
+          },
+          {
+            name: '\u200b', value: '\u200b', inline: true
+          },
+          {
+            name: 'Precisão 🎯',
+            value: `\`${playerInfo.precisao}\``,
             inline: true,
           },
           {

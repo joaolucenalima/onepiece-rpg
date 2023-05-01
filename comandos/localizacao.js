@@ -14,7 +14,7 @@ module.exports = {
       const { localizacao } = await Player.findById(interacao.user.id);
 
       if (localizacao != 'mar') {
-        await interacao.reply(`Atualmente você está em ${localizacao}`);
+        await interacao.reply(`Atualmente você está em ${localizacao}.`);
       } else {
         await interacao.reply(`Atualmente você está no mar! 🌊 🚢`);
       }
