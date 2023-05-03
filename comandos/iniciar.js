@@ -70,7 +70,11 @@ module.exports = {
 
         await newPlayer.save();
 
-        await interacao.editReply({ content: "Ótima escolha, jogador(a)!", ephemeral: true, components: [] });
+        await interacao.editReply({
+          content: "Ótima escolha, jogador(a)! \n\n Agora, para dar continuidade ao jogo, digite o comando `\/tutorial\`!",
+          ephemeral: true,
+          components: []
+        });
 
       } catch (err) {
         console.log(err);

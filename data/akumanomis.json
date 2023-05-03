@@ -1,0 +1,37 @@
+[
+  {
+    "nome": "",
+    "descricao": "",
+    "tipo": "",
+    "usuario": "",
+    "antigoUsuario": "",
+    "ataques": [
+      {
+        "nome": "",
+        "dano": 0
+      }
+    ],
+    "atributos": {
+      "vida": 0,
+      "forca": 0,
+      "resistencia": 0,
+      "agilidade": 0
+    },
+    "despertar": {
+      "nivel": 0,
+      "ataques": [
+        {
+          "nome": "",
+          "dano": 0
+        }
+      ],
+      "atributos": {
+        "vida": 0,
+        "forca": 0,
+        "resistencia": 0,
+        "agilidade": 0
+      }
+    }
+  },
+  {}
+]

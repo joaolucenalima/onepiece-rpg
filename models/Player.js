@@ -13,7 +13,8 @@ const PlayerSchema = new Schema({
     type: String
   },
   escolha: {
-    type: String
+    type: String,
+    default: "none"
   },
   classe: {
     type: String,
