@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
 const Player = require("../models/Player");
 
 module.exports = {
@@ -16,9 +16,55 @@ module.exports = {
       return;
     };
 
-    await interacao.reply(
-      `Olá novamente, ${jogador.userName}!\n É ótimo ver que você decidiu realmente jogar esse jogo! <:okluffy:1103084283293335624>\n Agora você realizará uma missão para aprender algumas coisas básicas.`
-    );
-  }
+    const pirata = new ButtonBuilder()
+      .setCustomId('pirata')
+      .setLabel('Pirata')
+      .setStyle(ButtonStyle.Primary);
 
+    const marinheiro = new ButtonBuilder()
+      .setCustomId('marinheiro')
+      .setLabel('Marinha')
+      .setStyle(ButtonStyle.Primary);
+
+    const row = new ActionRowBuilder()
+      .addComponents(pirata, marinheiro);
+
+    const resposta = await interacao.reply({
+      content: `Olá novamente, ${jogador.userName}!\nÉ ótimo ver que você decidiu continuar nesse jogo! <:okluffy:1103084283293335624>\nAgora você realizará uma missão para aprender algumas coisas básicas.`,
+      components: [row],
+      ephemeral: true
+    });
+
+    try {
+
+      const escolha = await resposta.awaitMessageComponent({ time: 60000 });
+
+      await Player.updateOne({
+        _id: interacao.user.id
+      }, {
+        escolha: escolha.customId
+      });
+
+      const cargosParaRemover = interacao.member._roles;
+      interacao.member.roles.remove(cargosParaRemover);
+
+      await interacao.editReply({
+        content: `Seja bem-vindo ao RPG, ${escolha.customId}!`,
+        ephemeral: true,
+        components: []
+      });
+
+      if (escolha.customId === 'marinheiro') {
+        const cargoMarinha = interacao.member.guild.roles.cache.get('1103819231717490719');
+        interacao.member.roles.add(cargoMarinha);
+      } else {
+        const cargoPirata = interacao.member.guild.roles.cache.get('1104274406890545203');
+        interacao.member.roles.add(cargoPirata);
+      }
+
+    } catch (err) {
+      console.log(err);
+      await interacao.editReply({ content: 'Confirmação não recebida em 1 minuto, operação cancelada.', components: [] });
+    }
+  }
 }
