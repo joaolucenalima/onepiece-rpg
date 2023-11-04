@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // conectando ao banco de dados
 (async () => {
-  mongoose.connect(process.env.MONGODB_URI, { keepAlive: true });
+  mongoose.connect(process.env.MONGODB_URI);
 
   const newArma = new Armas({
     nome: "Espada Básica",
@@ -34,5 +34,4 @@ require('dotenv').config();
 
   // desconecta do banco de dados
   mongoose.connection.close();
-
 })();

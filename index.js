@@ -29,8 +29,7 @@ for (const file of commandsFiles) {
 
 (async () => {
   try {
-
-    await mongoose.connect(process.env.MONGODB_URI, { keepAlive: true });
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('Conectado ao banco de dados!');
 
     // colocando o bot online
@@ -39,7 +38,6 @@ for (const file of commandsFiles) {
     });
 
     client.login(process.env.TOKEN);
-
   } catch (error) {
     console.error(error);
   }
@@ -54,7 +52,7 @@ client.on(Events.InteractionCreate, async interacao => {
 
   if (!comando) return;
 
-  if (comando.data.name != 'iniciar') {
+  if (comando.data.name != 'iniciar' && comando.data.name != 'ping') {
     const jogador = await Player.findById(interacao.user.id);
 
     if (!jogador) {
